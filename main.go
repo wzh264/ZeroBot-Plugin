@@ -65,7 +65,7 @@ import (
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/aipaint"          // ai绘图
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/aiwife"           // 随机老婆
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/alipayvoice"      // 支付宝到账语音
-	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/autowithdraw"     // 触发者撤回时也自动撤回
+	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/autowithdraw"     // 触发者撤回时也自动撤回 
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/baidu"            // 百度一下
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/baiduaudit"       // 百度内容审核
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/base16384"        // base16384加解密
@@ -85,7 +85,7 @@ import (
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/diana"            // 嘉心糖发病
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/dish"             // 程序员做饭指南
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/drawlots"         // 多功能抽签
-	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/dress"            // 女装
+	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/dress"            // 女装 
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/driftbottle"      // 漂流瓶
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/emojimix"         // 合成emoji
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/event"            // 好友申请群聊邀请事件处理
@@ -152,7 +152,7 @@ import (
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/wordcount"        // 聊天热词
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/wordle"           // 猜单词
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/ygo"              // 游戏王相关插件
-	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/ymgal"            // 月幕galgame
+	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/ymgal"            // 月幕galgame 
 
 	// _ "github.com/FloatTech/ZeroBot-Plugin/plugin/wtf"           // 鬼东西
 
@@ -224,15 +224,15 @@ func init() {
 	// 直接写死 AccessToken 时，请更改下面第二个参数
 	token := flag.String("t", "", "Set AccessToken of WSClient.")
 	// 直接写死 URL 时，请更改下面第二个参数
-	url := flag.String("u", "ws://127.0.0.1:6700", "Set Url of WSClient.")
+	url := flag.String("u", "ws://127.0.0.1:6700", "Set Url of WSClient.") 
 	// 默认昵称
-	adana := flag.String("n", "椛椛", "Set default nickname.")
-	prefix := flag.String("p", "/", "Set command prefix.")
-	runcfg := flag.String("c", "", "Run from config file.")
+	adana := flag.String("n", "咸鱼", "Set default nickname.")   
+	prefix := flag.String("p", "/", "Set command prefix.")  
+	runcfg := flag.String("c", "", "Run from config file.") 
 	save := flag.String("s", "", "Save default config to file and exit.")
-	late := flag.Uint("l", 233, "Response latency (ms).")
+	late := flag.Uint("l", 233, "Response latency (ms).") 
 	rsz := flag.Uint("r", 4096, "Receiving buffer ring size.")
-	maxpt := flag.Uint("x", 4, "Max process time (min).")
+	maxpt := flag.Uint("x", 4, "Max process time (min).") 
 	markmsg := flag.Bool("m", false, "Don't mark message as read automatically")
 
 	flag.Parse()
@@ -258,8 +258,8 @@ func init() {
 	}
 
 	// 通过代码写死的方式添加主人账号
-	// sus = append(sus, 12345678)
-	// sus = append(sus, 87654321)
+	sus = append(sus, 2646008917)  
+	// sus = append(sus, 87654321) 
 
 	// 启用 webui
 	// go webctrl.RunGui(*g)
@@ -269,7 +269,7 @@ func init() {
 		if err != nil {
 			panic(err)
 		}
-		config.W = make([]*driver.WSClient, 0, 2)
+		config.W = make([]*driver.WSClient, 0, 2) 
 		err = json.NewDecoder(f).Decode(&config)
 		f.Close()
 		if err != nil {
@@ -280,18 +280,18 @@ func init() {
 			config.Z.Driver[i] = w
 		}
 		for i, s := range config.S {
-			config.Z.Driver[i+len(config.W)] = s
+			config.Z.Driver[i+len(config.W)] = s 
 		}
 		logrus.Infoln("[main] 从", *runcfg, "读取配置文件")
 		return
 	}
 	config.W = []*driver.WSClient{driver.NewWebSocketClient(*url, *token)}
 	config.Z = zero.Config{
-		NickName:       append([]string{*adana}, "ATRI", "atri", "亚托莉", "アトリ"),
+		NickName:       append([]string{*adana}, "ATRI", "atri", "亚托莉", "アトリ"), 
 		CommandPrefix:  *prefix,
 		SuperUsers:     sus,
 		RingLen:        *rsz,
-		Latency:        time.Duration(*late) * time.Millisecond,
+		Latency:        time.Duration(*late) * time.Millisecond, 
 		MaxProcessTime: time.Duration(*maxpt) * time.Minute,
 		MarkMessage:    !*markmsg,
 		Driver:         []zero.Driver{config.W[0]},
